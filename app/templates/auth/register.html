@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Create account | SecureVault{% endblock %}
+{% block content %}
+<section class="auth-card card">
+    <h1>Create your vault</h1>
+    <p class="muted">Use a strong master password. If you lose it, encrypted vault data cannot be recovered.</p>
+    <form method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <label>{{ form.username.label }} {{ form.username() }}</label>
+        {% for error in form.username.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+
+        <label>{{ form.password.label }} {{ form.password() }}</label>
+        {% for error in form.password.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+
+        <label>{{ form.confirm_password.label }} {{ form.confirm_password() }}</label>
+        {% for error in form.confirm_password.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+
+        {{ form.submit(class="button full") }}
+    </form>
+    <p class="muted center">Already have an account? <a href="{{ url_for('auth.login') }}">Login</a></p>
+</section>
+{% endblock %}

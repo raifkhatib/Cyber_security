@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Login | SecureVault{% endblock %}
+{% block content %}
+<section class="auth-card card">
+    <h1>Unlock your vault</h1>
+    <p class="muted">Your master password unlocks your encrypted credentials for this session only.</p>
+    <form method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <label>{{ form.username.label }} {{ form.username() }}</label>
+        {% for error in form.username.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+
+        <label>{{ form.password.label }} {{ form.password() }}</label>
+        {% for error in form.password.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+
+        {{ form.submit(class="button full") }}
+    </form>
+    <p class="muted center">No account yet? <a href="{{ url_for('auth.register') }}">Create one</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}SecureVault | Local Password Manager{% endblock %}
+{% block content %}
+<section class="hero card">
+    <div>
+        <p class="eyebrow">Python • Flask • SQLite • Cryptography</p>
+        <h1>A secure local password manager with encrypted credentials.</h1>
+        <p class="muted big">
+            Register, unlock your vault, generate strong passwords, and store credentials encrypted in SQLite.
+        </p>
+        <div class="actions">
+            <a class="button" href="{{ url_for('auth.register') }}">Start demo</a>
+            <a class="button secondary" href="{{ url_for('auth.login') }}">Login</a>
+        </div>
+    </div>
+    <div class="security-list">
+        <h2>Security controls included</h2>
+        <ul>
+            <li>Per-user password hashing and salting</li>
+            <li>PBKDF2-derived vault encryption key</li>
+            <li>Fernet authenticated encryption</li>
+            <li>CSRF-protected forms</li>
+            <li>Parameterized database access through SQLAlchemy</li>
+            <li>Basic browser security headers</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
