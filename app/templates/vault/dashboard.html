@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Vault | SecureVault{% endblock %}
+{% block content %}
+<section class="toolbar card">
+    <div>
+        <p class="eyebrow">Encrypted vault</p>
+        <h1>Your credentials</h1>
+    </div>
+    <div class="actions">
+        <a class="button secondary" href="{{ url_for('vault.generator') }}">Generate password</a>
+        <a class="button" href="{{ url_for('vault.add_credential') }}">Add credential</a>
+    </div>
+</section>
+
+<section class="card">
+    <form class="search-form" method="get">
+        <label class="sr-only" for="q">Search credentials</label>
+        <input id="q" type="search" name="q" value="{{ search_term }}" placeholder="Search service, username, or URL">
+        <button class="button small" type="submit">Search</button>
+        {% if search_term %}
+            <a class="button small secondary" href="{{ url_for('vault.dashboard') }}">Clear</a>
+        {% endif %}
+    </form>
+
+    {% if credentials %}
+        <div class="credential-grid">
+            {% for credential in credentials %}
+                <article class="credential-card">
+                    <div>
+                        <h2>{{ credential.service }}</h2>
+                        <p class="muted">{{ credential.login_name }}</p>
+                        {% if credential.url %}<p class="muted small-text">{{ credential.url }}</p>{% endif %}
+                    </div>
+                    <div class="actions wrap">
+                        <a class="button small" href="{{ url_for('vault.view_credential', credential_id=credential.id) }}">View</a>
+                        <a class="button small secondary" href="{{ url_for('vault.edit_credential', credential_id=credential.id) }}">Edit</a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h2>No credentials found</h2>
+            <p class="muted">Add your first encrypted credential to test the full workflow.</p>
+            <a class="button" href="{{ url_for('vault.add_credential') }}">Add credential</a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

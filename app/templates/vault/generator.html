@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Password Generator | SecureVault{% endblock %}
+{% block content %}
+<section class="auth-card card wide">
+    <p class="eyebrow">Secure generation</p>
+    <h1>Password generator</h1>
+    <p class="muted">Generated with Python's cryptographic random source through the secrets module.</p>
+    <form method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <label>{{ form.length.label }} {{ form.length() }}</label>
+        {% for error in form.length.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+
+        <div class="check-grid">
+            <label>{{ form.use_uppercase() }} {{ form.use_uppercase.label.text }}</label>
+            <label>{{ form.use_lowercase() }} {{ form.use_lowercase.label.text }}</label>
+            <label>{{ form.use_digits() }} {{ form.use_digits.label.text }}</label>
+            <label>{{ form.use_symbols() }} {{ form.use_symbols.label.text }}</label>
+        </div>
+
+        {{ form.submit(class="button") }}
+    </form>
+
+    {% if generated_password %}
+        <section class="generated-box" aria-live="polite">
+            <h2>Generated password</h2>
+            <code>{{ generated_password }}</code>
+            <button class="copy-button" type="button" data-copy="{{ generated_password }}">Copy</button>
+        </section>
+    {% endif %}
+</section>
+{% endblock %}

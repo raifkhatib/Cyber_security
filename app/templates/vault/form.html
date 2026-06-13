@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} | SecureVault{% endblock %}
+{% block content %}
+<section class="auth-card card wide">
+    <p class="eyebrow">Encrypted entry</p>
+    <h1>{{ title }}</h1>
+    <form method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <label>{{ form.service.label }} {{ form.service(placeholder="Example: Gmail") }}</label>
+        {% for error in form.service.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+
+        <label>{{ form.login_name.label }} {{ form.login_name(placeholder="name@example.com") }}</label>
+        {% for error in form.login_name.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+
+        <label>{{ form.password.label }} {{ form.password(placeholder="Paste or type the password") }}</label>
+        {% for error in form.password.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+        <p class="muted small-text"><a href="{{ url_for('vault.generator') }}">Need a strong password? Open the generator.</a></p>
+
+        <label>{{ form.url.label }} {{ form.url(placeholder="https://example.com") }}</label>
+        {% for error in form.url.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+
+        <label>{{ form.notes.label }} {{ form.notes(rows="5", placeholder="Recovery notes, security questions, or private hints") }}</label>
+        {% for error in form.notes.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+
+        <div class="actions">
+            {{ form.submit(class="button") }}
+            <a class="button secondary" href="{{ url_for('vault.dashboard') }}">Cancel</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

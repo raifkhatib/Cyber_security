@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}{{ credential.service }} | SecureVault{% endblock %}
+{% block content %}
+<section class="card detail-card">
+    <div class="detail-header">
+        <div>
+            <p class="eyebrow">Credential details</p>
+            <h1>{{ credential.service }}</h1>
+            <p class="muted">Updated {{ credential.updated_at.strftime('%Y-%m-%d %H:%M') }}</p>
+        </div>
+        <div class="actions">
+            <a class="button secondary" href="{{ url_for('vault.edit_credential', credential_id=credential.id) }}">Edit</a>
+            <a class="button secondary" href="{{ url_for('vault.dashboard') }}">Back</a>
+        </div>
+    </div>
+
+    <dl class="secret-list">
+        <div>
+            <dt>Username / Email</dt>
+            <dd>
+                <code>{{ credential.login_name }}</code>
+                <button class="copy-button" type="button" data-copy="{{ credential.login_name }}">Copy</button>
+            </dd>
+        </div>
+        <div>
+            <dt>Password</dt>
+            <dd>
+                <code class="secret-value" data-secret>{{ credential.password }}</code>
+                <button class="copy-button" type="button" data-copy="{{ credential.password }}">Copy</button>
+                <button class="copy-button" type="button" data-toggle-secret>Hide / show</button>
+            </dd>
+        </div>
+        {% if credential.url %}
+        <div>
+            <dt>Website</dt>
+            <dd><a href="{{ credential.url }}" rel="noopener noreferrer" target="_blank">{{ credential.url }}</a></dd>
+        </div>
+        {% endif %}
+        {% if credential.notes %}
+        <div>
+            <dt>Private notes</dt>
+            <dd class="notes">{{ credential.notes }}</dd>
+        </div>
+        {% endif %}
+    </dl>
+
+    <form method="post" action="{{ url_for('vault.delete_credential', credential_id=credential.id) }}" class="delete-form" data-confirm="Delete this credential permanently?">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="danger-button" type="submit">Delete credential</button>
+    </form>
+</section>
+{% endblock %}
