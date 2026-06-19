@@ -1,4 +1,4 @@
-# SecureVault — Secure Password Manager
+# SecureVault: Secure Password Manager
 
 A complete Python Flask password manager project for a cybersecurity coursework/demo submission.
 
